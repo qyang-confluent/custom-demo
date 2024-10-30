@@ -1,0 +1,23 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connector
+metadata:
+  name: mqtt-source
+  namespace: confluent
+spec:
+  class: "io.confluent.connect.mqtt.MqttSourceConnector"
+  taskMax: 1
+  connectClusterRef:
+    name: connect-demo
+  configs:
+    kafka.topic: "mqtt-cp"
+    mqtt.server.uri: "tcp://mqtt-broker:1883"
+    mqtt.topics: "spBv1.0/#"
+    mqtt.qos: "2"
+    mqtt.username: "admin"
+    mqtt.password: "changeme"
+    key.converter: "org.apache.kafka.connect.storage.StringConverter"
+    value.converter: "io.confluent.connect.protobuf.ProtobufConverter"
+    value.converter.schema.registry.url: "https://psrc-xxxx.us-east-1.aws.confluent.cloud"
+    value.converter.basic.auth.credentials.source: "USER_INFO"
+    value.converter.schema.registry.basic.auth.user.info: "schema-registy-api:schema-registry-api-secret"

@@ -1,0 +1,50 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect-demo
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.7.0
+    init: confluentinc/confluent-init-container:2.9.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-replicator
+            owner: confluentinc
+            version: 7.3.3
+          - name: -connect-transform-common
+            owner: jcustenborder
+            version: 0.1.0.54
+          - name: kafka-connect-mqtt
+            owner: confluentinc
+            version: 1.4.1
+          - name: kafka-connect-jdbc
+            owner: confluentinc
+            version: 10.2.5
+          - name: kafka-connect-datagen
+            owner: confluentinc
+            version: 0.6.0
+  configOverrides:
+    server:
+      - request.timeout.ms=30000
+  dependencies:
+    kafka:
+      bootstrapEndpoint: pkc-xxxxx.us-east-1.aws.confluent.cloud:9092 
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: cluster-demo-credentials
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true
+    schemaRegistry:
+      url: https://psrc-xxxx.us-east-1.aws.confluent.cloud
+      authentication:
+        type: basic
+        basic:
+          secretRef: ccloud-sr-credentials
