@@ -1,5 +1,12 @@
 # Deploy the MQTT Source connector
 
+## Prereq
+You will need 
+- Confluent Cloud Kafka Cluster API key and secret, bootstrap server endpoint
+- Confluent Cloud Schema Registry API key and secret, url
+- MQTT Broker information (url, username and password)
+- Confluent License Key (optional)
+  
 ## Install Confluent for Kubernetes Operator
 ```
 ./install-cfk.sh
