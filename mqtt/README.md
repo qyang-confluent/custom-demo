@@ -1,9 +1,11 @@
+Deploy the MQTT Source connector
+
 # Install Confluent for Kubernetes Operator
 ```
 ./install-cfk.sh
 ```
 
-# Create K8s Secret to store 
+# Create K8s Secrets 
 - Confluent Cloud Kafka Cluster API
 - Confluent Cloud Schema Registry API
 - Confluent Platform License Key
